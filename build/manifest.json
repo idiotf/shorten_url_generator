@@ -1,0 +1,27 @@
+{
+  "name": "Shorten URL Generator",
+  "description": "naver.me 단축링크를 쉽게 만들어줍니다.",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "dist/index.html"
+  },
+  "host_permissions": [
+    "https://me2do.naver.com/common/requestJsonpV2.nhn"
+  ],
+  "permissions": [
+    "declarativeNetRequest"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{8aa976f5-dca3-4bf3-874c-3af06eb13fac}"
+    }
+  }
+}
