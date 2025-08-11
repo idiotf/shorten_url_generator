@@ -7,10 +7,17 @@ import './style.css'
 
 export default function App() {
   const [ url, setUrl ] = useState('')
+  const [ error, setError ] = useState<unknown>()
   const [ shortenUrl, setShortenUrl ] = useState('')
 
   const generateURL = useCallback(async () => {
-    setShortenUrl(await getShortenUrl(url))
+    try {
+      setShortenUrl(await getShortenUrl(url))
+      setError('')
+    } catch (e) {
+      setShortenUrl('')
+      setError(e)
+    }
   }, [ url ])
 
   return (
@@ -30,6 +37,12 @@ export default function App() {
         <div className='flex gap-1 justify-center mt-2'>
           <Input type='url' readOnly value={shortenUrl} className='w-42.25 font-[Geist_Mono,monospace] text-sm' />
           <CopyButton value={shortenUrl} />
+        </div>
+      )}
+      {!error || (
+        <div className='flex gap-1 justify-center mt-2'>
+          <Input type='url' readOnly value='오류가 발생했습니다' className='w-42.25 text-red-500 text-sm' />
+          <CopyButton value={error + ''} />
         </div>
       )}
     </main>

@@ -16,7 +16,12 @@ export default async function getShortenUrl(url: string) {
       }),
     }).replaceAll('script', 'scrip%74'),
   }))
+  if (!res.ok) throw `error code ${res.status}`
+
   const text = await res.text()
-  const shortenUrl = JSON.parse(text.slice(1, -2)).result.url as string
+  const body = JSON.parse(text.slice(1, -2))
+  if (body.code != '200') throw `${body.code} ${body.message}`
+
+  const shortenUrl = body.result.url as string
   return shortenUrl.replace('https://', '')
 }
