@@ -14,7 +14,7 @@ export default async function getShortenUrl(url: string) {
         version: '10',
         sourceReferer: 'share',
       }),
-    }),
+    }).replaceAll('script', 'scrip%74'),
   }))
   const text = await res.text()
   const shortenUrl = JSON.parse(text.slice(1, -2)).result.url as string
